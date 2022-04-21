@@ -22,39 +22,3 @@ public class YearlyReport {
         return amount;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    public void FileTest2(){
-        try {
-            File file = new File("resources/y.2021.csv");
-            Scanner scanner = new Scanner(file);
-            String line = scanner.nextLine();
-            String[] words = line.split(",");
-            System.out.println(Arrays.toString(words));
-
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-*/
