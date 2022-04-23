@@ -4,8 +4,8 @@ public class MonthlyReport {
     private int quantity;
     private int sumOfOne;
 
-    public MonthlyReport(String item_name, boolean isExpense, int quantity, int sumOfOne) {
-        this.itemName = item_name;
+    public MonthlyReport(String itemName, boolean isExpense, int quantity, int sumOfOne) {
+        this.itemName = itemName;
         this.isExpense = isExpense;
         this.quantity = quantity;
         this.sumOfOne = sumOfOne;

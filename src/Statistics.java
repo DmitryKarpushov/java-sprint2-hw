@@ -1,19 +1,18 @@
 import java.util.*;
-import java.util.logging.Logger;
 
 public class Statistics {
-    private static Logger log = Logger.getLogger(Statistics.class.getName());
-    private List<YearlyReport> yearlyReport = ReadFile.getList();
-    private Map<Integer, ArrayList<MonthlyReport>> monthlyReport = ReadFile.getMap();
-    private ArrayList<String> titleMonth = month();
+    Scanner scanner = new Scanner(System.in);
+    reportReader reportreader = new reportReader(scanner);
 
-    private ArrayList<String> month() {
-        ArrayList<String> arrayListMonth = new ArrayList<>();
-        arrayListMonth.add("Январь");
-        arrayListMonth.add("Февраль");
-        arrayListMonth.add("Март");
-        return arrayListMonth;
+    private List<YearlyReport> yearlyReport = reportreader.readFileYear();
+    private Map<Integer, ArrayList<MonthlyReport>> monthlyReport = reportreader.readMonthFile();
+    private ArrayList<String> titleMonth =  new ArrayList<>();
+    public Statistics() {
+        titleMonth.add("Январь");
+        titleMonth.add("Февраль");
+        titleMonth.add("Март");
     }
+
 
     public void statisticsMonth() {
         if (yearlyReport.isEmpty() || monthlyReport.isEmpty()) {
@@ -32,8 +31,6 @@ public class Statistics {
 
                 for (int i = 0; i < entriesMoth.getValue().size(); i++) {
                     MonthlyReport Month = entriesMoth.getValue().get(i);
-                    // log.info("TEST  Month.getQuantity()  = " + Month.getQuantity() );
-                    // log.info("TEST Month.getSumOfOne()  = " + Month.getSumOfOne() );
                     int sum = Month.getQuantity() * Month.getSumOfOne();
                     if (!Month.isIsExpense() && sum > profitableSum) {
                         profitableSum = sum;
@@ -69,10 +66,6 @@ public class Statistics {
                     unProfit += year.getAmount();
                     totalConsumption += year.getAmount();
                 }
-                // log.info("TEST  profit  = " + profit );
-                // log.info("TEST unProfit  = " + unProfit );
-                // log.info("TEST  profit  = " + totalIncome );
-                // log.info("TEST unProfit  = " + consumptionTotal );
                 counter++;
                 while (counter == 2) {
                     System.out.println("Прибыль за " + titleMonth.get(year.getMonth() - 1) + " " + (profit - unProfit));

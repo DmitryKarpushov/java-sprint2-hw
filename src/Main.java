@@ -1,23 +1,23 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        ReadFile readFile = new ReadFile(scanner);
+        reportReader parser = new reportReader(scanner);
         Statistics statistics = new Statistics();
-        printMenu(); //для вывода один раз (так же идея выводить меню по выбору пользолателя)
+
+        printMenu();
 
         while (true) {
-            //printMenu(); //для вывода меню после каждого действия
+
             int command = scanner.nextInt();
             switch (command) {
                 case 1:
-                    readFile.readMonthFile();
+                    parser.readMonthFile();
                     break;
                 case 2:
-                    readFile.readFileYear();
+                    parser.readFileYear();
                     break;
                 case 3:
                     statistics.comparisonOfReports();
