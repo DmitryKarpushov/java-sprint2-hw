@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        reportReader parser = new reportReader(scanner);
+        ReportReader parser = new ReportReader();
         Statistics statistics = new Statistics();
 
         printMenu();
@@ -33,6 +33,7 @@ public class Main {
                     break;
                 case 7:
                     System.out.println("Выход из приложения!");
+                    scanner.close();
                     return;
                 default:
                     System.out.println("Введена неверная команда!");

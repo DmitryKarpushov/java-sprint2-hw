@@ -1,8 +1,7 @@
 import java.util.*;
 
 public class Statistics {
-    Scanner scanner = new Scanner(System.in);
-    reportReader reportreader = new reportReader(scanner);
+    ReportReader reportreader = new ReportReader();
 
     private List<YearlyReport> yearlyReport = reportreader.readFileYear();
     private Map<Integer, ArrayList<MonthlyReport>> monthlyReport = reportreader.readMonthFile();

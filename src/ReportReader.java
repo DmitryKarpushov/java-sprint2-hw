@@ -3,21 +3,16 @@ import java.io.IOException;
 import java.util.*;
 import java.util.Scanner;
 
-public class reportReader {
+public class ReportReader {
     private String[] month = new String[]{"01", "02", "03"};
-    private HashMap<Integer, ArrayList<MonthlyReport>> monthlyReport = new HashMap<>();
-    private List<YearlyReport> yearlyReport = new ArrayList<>();
-    private boolean booleanYear;
-    private boolean booleanMonth;
-    private Scanner scanner;
 
-    public reportReader(Scanner scanner) {
-        this.scanner = scanner;
-
-    }
+    private boolean readYear;
+    private boolean readMonth;
+    Scanner scanner = new Scanner(System.in);
 
     public List<YearlyReport> readFileYear() {
-        if (booleanYear) {
+        List<YearlyReport> yearlyReports = new ArrayList<>();
+        if (readYear) {
             System.out.println("Мы уже считали годовой отчет!");
             return null;
         }
@@ -30,8 +25,7 @@ public class reportReader {
             while (scanner.hasNext()) {
                 final String s = scanner.nextLine();
                 String[] arrayCSV = s.split(",");
-                //
-                yearlyReport.add(new YearlyReport(Integer.parseInt(arrayCSV[0]), Integer.parseInt(arrayCSV[1]), Boolean.parseBoolean(arrayCSV[2])));
+                yearlyReports.add(new YearlyReport(Integer.parseInt(arrayCSV[0]), Integer.parseInt(arrayCSV[1]), Boolean.parseBoolean(arrayCSV[2])));
             }
             System.out.println("Мы считали годовой отчет!");
             scanner.close();
@@ -39,12 +33,13 @@ public class reportReader {
             e.printStackTrace();
             System.out.println("Не удалось считать годовой отчет");
         }
-        booleanYear = true;
-        return yearlyReport;
+        readYear = true;
+        return yearlyReports;
     }
 
     public HashMap<Integer, ArrayList<MonthlyReport>> readMonthFile() {
-        if (booleanMonth) {
+        HashMap<Integer, ArrayList<MonthlyReport>> monthlyReport = new HashMap<>();
+        if (readMonth) {
             System.out.println("Месячные отчеты уже считаны!");
             return null;
         }
@@ -54,14 +49,14 @@ public class reportReader {
             try {
                 scanner = new Scanner(new File(url).toPath());
                 scanner.useDelimiter(System.getProperty("line.separator"));
-                ArrayList<MonthlyReport> monthList = new ArrayList<>();
+                ArrayList<MonthlyReport> monthlyReports = new ArrayList<>();
                 scanner.nextLine();
                 while (scanner.hasNext()) {
                     final String s = scanner.nextLine();
                     String[] arrayCSV = s.split(",");
-                    monthList.add(new MonthlyReport(arrayCSV[0], Boolean.parseBoolean(arrayCSV[1]), Integer.parseInt(arrayCSV[2]), Integer.parseInt(arrayCSV[3])));
+                    monthlyReports.add(new MonthlyReport(arrayCSV[0], Boolean.parseBoolean(arrayCSV[1]), Integer.parseInt(arrayCSV[2]), Integer.parseInt(arrayCSV[3])));
                 }
-                monthlyReport.put(Integer.parseInt(actualMonth), monthList);
+                monthlyReport.put(Integer.parseInt(actualMonth), monthlyReports);
                 scanner.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -69,7 +64,7 @@ public class reportReader {
             }
         }
         System.out.println("Мы считали месячные отчеты! ");
-        booleanMonth = true;
+        readMonth = true;
         return monthlyReport;
     }
 
